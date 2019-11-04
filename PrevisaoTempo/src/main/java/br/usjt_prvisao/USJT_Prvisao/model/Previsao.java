@@ -2,10 +2,16 @@ package br.usjt_prvisao.USJT_Prvisao.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,16 +19,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table (name = "tb_previsao")
 public class Previsao implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id_previsao")
 	private long id;
 	
-	private String dia;
-	private Double minima;
-	private Double maxima;
+	@Column(name = "tempmin_previsao")
+	private Double temperaturaMin;
+	@Column(name = "tempmax_previsao")
+	private Double temperaturaMax;
+	@Column(name = "humidade_previsao")
 	private Double humidade;
+	@Column(name = "desc_previsao")
 	private String descricao;
 	/**
 	 * @return the id
@@ -36,45 +47,8 @@ public class Previsao implements Serializable{
 	public void setId(long id) {
 		this.id = id;
 	}
-	/**
-	 * @return the dia
-	 */
-	public String getDia() {
-		return dia;
-	}
-	/**
-	 * @param dia the dia to set
-	 */
-	public void setDia(String dia) {
-		this.dia = dia;
-	}
-	/**
-	 * @return the minima
-	 */
-	public Double getMinima() {
-		return minima;
-	}
-	/**
-	 * @param minima the minima to set
-	 */
-	public void setMinima(Double minima) {
-		this.minima = minima;
-	}
-	/**
-	 * @return the maxima
-	 */
-	public Double getMaxima() {
-		return maxima;
-	}
-	/**
-	 * @param maxima the maxima to set
-	 */
-	public void setMaxima(Double maxima) {
-		this.maxima = maxima;
-	}
-	/**
-	 * @return the humidade
-	 */
+
+
 	public Double getHumidade() {
 		return humidade;
 	}
@@ -102,6 +76,13 @@ public class Previsao implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	@OneToOne(optional=true, cascade = CascadeType.ALL)
+	@JoinColumn (name = "id_semana")
+	private DiaSemana diaSemana;
+	
+	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn (name="id_cidade")
+	private Cidade cidade;
 	
 	
 	
