@@ -18,7 +18,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
+@Entity (name = "previsao")
 @Table (name = "tb_previsao")
 public class Previsao implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -83,6 +83,7 @@ public class Previsao implements Serializable{
 	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn (name="id_cidade")
 	private Cidade cidade;
+	
 	
 	
 	

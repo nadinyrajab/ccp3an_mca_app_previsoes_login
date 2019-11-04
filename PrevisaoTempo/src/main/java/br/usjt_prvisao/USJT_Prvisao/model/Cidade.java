@@ -1,7 +1,9 @@
 package br.usjt_prvisao.USJT_Prvisao.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,10 +36,8 @@ public class Cidade {
 	
 	@Column(name = "lon_cidade")
 	private Double longitude;
+		
 	
-	
-	
-	
-	@OneToMany (mappedBy= "cidade")
-	private List<Previsao> previsoes;
+	@OneToMany (mappedBy="cidade", cascade = {CascadeType.ALL})
+	private List<Previsao> previsoes = new ArrayList<>();
 }

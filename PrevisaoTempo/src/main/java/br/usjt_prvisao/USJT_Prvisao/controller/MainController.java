@@ -10,20 +10,31 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.usjt_prvisao.USJT_Prvisao.model.Previsao;
 import br.usjt_prvisao.USJT_Prvisao.model.Usuario;
-import br.usjt_prvisao.USJT_Prvisao.repository.PrevisaoRepo;
 import br.usjt_prvisao.USJT_Prvisao.service.LoginService;
+import br.usjt_prvisao.USJT_Prvisao.service.PrevisaoService;
+
 
 @Controller
 public class MainController {
+	//@Autowired
+	//private PrevisaoRepo previsaoRepo;
+	
 	@Autowired
-	private PrevisaoRepo previsaoRepo;
+	private PrevisaoService previsaoService;
 
 	@GetMapping("/previsao")
 	public ModelAndView listarPrevisao() {
 		ModelAndView mv = new ModelAndView("listPrevisao");
-		List<Previsao> previsao = previsaoRepo.findAll();
+		List<Previsao> previsao = previsaoService.listarTodos();
 		mv.addObject("previsao", previsao);
+		mv.addObject(new Previsao());
 		return mv;
+	}
+
+	@PostMapping
+	public String salvar (Previsao previsao) {
+		PrevisaoService.salvar(previsao);
+		return "redirect:/previsao";
 	}
 
 	@GetMapping("/login")

@@ -13,6 +13,7 @@
 <body>
 
 	<div class="container">
+
 		<table class="table">
 			<thead>
 				<tr>
@@ -20,6 +21,7 @@
 				<h2 class="text-center">Previsão do tempo para UMA SEMANA</h2> </br>
 				
 					<th scope="col">Cidade</th>
+					<th scope="col">Dia da Semana</th>
 					<th scope="col">Temperatura mínima</th>
                 	<th scope="col">Temperatura máxima</th>
                 	<th scope="col">Humidade relativa do ar</th>      
@@ -41,10 +43,24 @@
                 <td th:text="${previsao.cidade.longitude}"></td>
                 <td th:text="${previsao.descricao}"></td>
 			</tr>
+			
 		</tbody></tbody>
 			
 </table>
-  
+  <form class="form-inline" method="POST" th:object="${previsao}" th:action="@{/previsaos}" style="margin: 20px 0">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Cidade" th:field="*{cidade.nome}"/> 
+				<input type="text" class="form-control" placeholder="Dia Da Semana" th:field="*{diaSemana.dia}"/> 
+				<input type="text" class="form-control" placeholder="Temperatura Mínima" th:field="*{temperaturaMin}"/>
+				<input type="text" class="form-control" placeholder="Temperatura Máxima" th:field="*{temperaturaMax}"/>
+				<input type="text" class="form-control" placeholder="Humidade" th:field="*{humidade}"/>
+				<input type="text" class="form-control" placeholder="Latitude" th:field="*{cidade.latitude}"/>
+				<input type="text" class="form-control" placeholder="Longitude" th:field="*{cidade.longitude}"/>
+				<input type="text" class="form-control" placeholder="Descrição" th:field="*{descricao}"/>
+				
+				<button type="submit" class="btn btn-primary">Adicionar</button>
+			</div>
+		</form>
   
   </div>
 </body>
